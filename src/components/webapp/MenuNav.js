@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext }from "react";
 import { Menu } from "antd";
 import {
   SnippetsOutlined,
@@ -7,8 +7,12 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../App";
 
 const MenuNav = () => {
+
+    const { state, dispatch } = useContext(AppContext);
+
   const navigate = useNavigate();
   function getItem(label, key, icon, children, type) {
     return {
@@ -27,11 +31,14 @@ const MenuNav = () => {
       navigate("/profile_user");
     } else if (item.key === "blog") {
       navigate("/blog");
+    } else if (item.key === "logout") {
+      dispatch({ type: "LOGOUT" });
+      navigate("/");
     }
   };
 
   const items = [
-    getItem("@usuario", "profile_user", <SettingOutlined />),
+    getItem(`${state.user.username}`, "profile_user", <SettingOutlined />),
     getItem("Blog", "blog", <SnippetsOutlined />),
     getItem("Salir", "logout", <LogoutOutlined />),
   ];

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Typography, Row, Col, Card, Button, Tag, Table } from "antd";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import {
@@ -17,10 +17,14 @@ import {
 } from "@ant-design/icons";
 import "react-circular-progressbar/dist/styles.css";
 import Blog from "./Blog";
+import { AppContext } from "../App";
 
 const { Title, Paragraph } = Typography;
 
 const Dashboard = () => {
+    
+    const { state, dispatch } = useContext(AppContext);
+
   return (
     <Row justify={"space-between"} align={""}>
       <Col>
@@ -33,7 +37,7 @@ const Dashboard = () => {
               marginTop: "-5px",
             }}
           >
-            Hola, Benjamin Eltit
+            Hola, {state.user.first_name} {state.user.last_name}
           </Title>{" "}
           <br />
           <Title level={4} style={styles.title}>
