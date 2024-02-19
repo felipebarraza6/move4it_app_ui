@@ -31,7 +31,6 @@ const { Content, Header, Sider } = Layout;
 const Home = () => {
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
 
   return (
     <Layout>

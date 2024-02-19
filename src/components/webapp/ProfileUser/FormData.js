@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Input, Button, DatePicker } from "antd";
+import { AppContext} from "../../../App";
 
 const { Item } = Form;
 
+
 const FormData = () => {
+    const { state, dispatch } = useContext(AppContext);
+    console.log(state);
+
   return (
-    <Form>
-      <Item>
+    <Form initialValues={state.user}>
+      <Item name='first_name'>
         <Input placeholder="Nombre" />
       </Item>
-      <Item>
+      <Item name='last_name'>
         <Input placeholder="Apellido" />
       </Item>
       <Item>
