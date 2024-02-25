@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col, Typography } from "antd";
 import FormData from "../components/webapp/ProfileUser/FormData";
 import Stats from "../components/webapp/ProfileUser/Stats";
 import UpdatePassword from "../components/webapp/ProfileUser/UpdatePassword";
+import { AppContext } from "../App";
 
 const { Title } = Typography;
 
 const ProfileUser = () => {
+  const { state, dispatch } = useContext(AppContext);
   return (
     <Row>
       <Col span={24}>
-        <Title level={3}>@usuario</Title>
+        <Title level={3}>@{state.user.username}</Title>
       </Col>
       <Col span={12} style={styles.col}>
         <FormData />

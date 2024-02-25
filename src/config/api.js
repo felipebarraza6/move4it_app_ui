@@ -2,10 +2,8 @@ import axios from "axios";
 
 import { notification } from "antd";
 import { CloudDownloadOutlined } from "@ant-design/icons";
-//export const BASE_URL = 'http://186.64.113.30:8000/api/'
-export const BASE_URL = 'http://localhost:8000/api/'
-
-
+export const BASE_URL = "http://186.64.113.30:8000/api/";
+//export const BASE_URL = 'http://localhost:8000/api/'
 
 export const Axios = axios.create({
   baseURL: BASE_URL,
@@ -13,6 +11,30 @@ export const Axios = axios.create({
 
 export const POST_LOGIN = async (endpoint, data) => {
   const request = await Axios.post(endpoint, data);
+  return request;
+};
+
+export const POST = async (endpoint, data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const options = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
+  const request = await Axios.post(endpoint, data, options);
+  return request;
+};
+
+export const PATCH = async (endpoint, data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const options = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
+  const request = await Axios.patch(endpoint, data, options);
   return request;
 };
 
@@ -60,6 +82,8 @@ const methods = {
   POST_LOGIN,
   GET,
   DOWNLOAD,
+  POST,
+  PATCH,
 };
 
-export default methods; 
+export default methods;

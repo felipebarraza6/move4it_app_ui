@@ -1,36 +1,48 @@
-import React, { useContext } from "react";
-import { Form, Input, Button, DatePicker } from "antd";
-import { AppContext} from "../../../App";
-import dayjs from "dayjs";
+import React, { useContext, useEffect } from "react";
+import { Form, Input, Button, notification } from "antd";
+import { AppContext } from "../../../App";
+import { ArrowUpOutlined } from "@ant-design/icons";
+import { endpoints } from "../../../config/endpoints";
 
 const { Item } = Form;
 
-
 const FormData = () => {
-    const { state, dispatch } = useContext(AppContext);
-    console.log(state);
-    const dateFormat = 'YYYY/MM/DD';
+  const { state, dispatch } = useContext(AppContext);
+  const [form] = Form.useForm();
 
+  const onFinish = async (values) => {
+    const rq = await endpoints.auth.update_user(values).then((r) => {
+      notification.success({ message: "Usuario actualizado correctamente" });
+    });
+    console.log(values);
+  };
+
+  useEffect(() => {}, []);
 
   return (
-    <Form initialValues={state.user}>
-      <Item name='first_name'>
+    <Form initialValues={state.user} onFinish={onFinish} form={form}>
+      <Item name="identification_number">
+        <Input placeholder="Rut" />
+      </Item>
+      <Item name="first_name">
         <Input placeholder="Nombre" />
       </Item>
-      <Item name='last_name'>
+      <Item name="last_name">
         <Input placeholder="Apellido" />
       </Item>
-      <Item >
-        <DatePicker defaultValue={[dayjs(state.user.date_of_birth, dateFormat), dayjs(state.user.date_of_birth, dateFormat)]} style={styles.dateBorn} placeholder="Fecha nacimiento" />
+      <Item name="date_of_birth">
+        <Input />
       </Item>
-      <Item name='phone_number'>
+      <Item name="phone_number">
         <Input placeholder="Teléfono" />
       </Item>
-      <Item name='bio'>
+      <Item name="bio">
         <Input.TextArea rows={4} placeholder="Descripción" />
       </Item>
       <Item>
-        <Button type="primary">Actualizar</Button>
+        <Button type="primary" icon={<ArrowUpOutlined />} htmlType="submit">
+          Actualizar
+        </Button>
       </Item>
     </Form>
   );

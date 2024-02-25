@@ -16,9 +16,16 @@ const get_profile = async () => {
   return request.data;
 };
 
+const update_user = async (data) => {
+  const user = JSON.parse(localStorage.getItem("user") || null);
+  const request = await methods.PATCH(`auth/users/${user.username}/`, data);
+  return request.data;
+};
+
 export const endpoints = {
   auth: {
     login: login,
     profile: get_profile,
+    update_user: update_user,
   },
 };
