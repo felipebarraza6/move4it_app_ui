@@ -22,10 +22,28 @@ const update_user = async (data) => {
   return request.data;
 };
 
+const update_password = async (new_password) => {
+  const user = JSON.parse(localStorage.getItem("user") || null);
+  const request = await methods.POST("auth/users/reset_password/", {
+    user: user.email,
+    new_password: new_password,
+  });
+  return request.data;
+};
+
+const blog_list = async () => {
+  const request = await methods.GET("blogs/");
+  return request.data;
+};
+
 export const endpoints = {
   auth: {
     login: login,
     profile: get_profile,
     update_user: update_user,
+    reset_password: update_password,
+  },
+  blog: {
+    list: blog_list,
   },
 };

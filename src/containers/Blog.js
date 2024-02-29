@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Tooltip, Drawer } from "antd";
 import { EyeFilled } from "@ant-design/icons";
+import { endpoints } from "../config/endpoints";
 import Paragraph from "antd/es/skeleton/Paragraph";
 
 const Blog = () => {
   const [visible, setVisible] = useState(false); // initialize state for Drawer visibility
-  const [blogSingle, setBlogSingle] = useState({});
+  const [blogSingle, setBlogSingle] = useState(null);
+  const [blogs, setBlogs] = useState([]);
   const path = window.location.pathname.split("/")[1];
 
-  const showDrawer = (title, paragraph) => {
-    setBlogSingle({ ...blogSingle, title: title, paragraph: paragraph });
+  const showDrawer = (blog) => {
+    setBlogSingle({ ...blog });
     setVisible(true);
   };
 
@@ -17,260 +19,55 @@ const Blog = () => {
     setVisible(false);
   };
 
+  useEffect(() => {
+    const getBlogs = async () => {
+      const request = await endpoints.blog.list().then((x) => {
+        setBlogs(x.results);
+      });
+    };
+    getBlogs();
+  }, []);
+
+  console.log(blogs);
+
   return (
     <div>
       <Row justify={"space-around"}>
-        <Col span={24}></Col>
-        {path === "blog" && (
-          <>
-            {" "}
-            <Col>
-              <Card
-                style={styles.card}
-                actions={[
-                  <Tooltip title="Ver noticia">
-                    <EyeFilled
-                      key="setting"
-                      onClick={() => {
-                        showDrawer("Titulo");
-                      }}
-                    />
-                  </Tooltip>,
-                ]}
-                hoverable
-                cover={
+        {blogs.map((blog) => (
+          <Col>
+            <Card
+              style={styles.card}
+              actions={[
+                <Tooltip title="Ver noticia">
+                  <EyeFilled
+                    key="setting"
+                    onClick={() => {
+                      showDrawer(blog);
+                    }}
+                  />
+                </Tooltip>,
+              ]}
+              hoverable
+              cover={
+                blog.principal_img && (
                   <img
                     alt="example"
-                    src={
-                      "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                    }
+                    src={blog.principal_img}
                     style={styles.img}
                   />
-                }
-              >
-                <Card.Meta
-                  title="Titulo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                />
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                style={styles.card}
-                actions={[
-                  <Tooltip title="Ver noticia">
-                    <EyeFilled
-                      key="setting"
-                      onClick={() => {
-                        showDrawer("Titulo");
-                      }}
-                    />
-                  </Tooltip>,
-                ]}
-                hoverable
-                cover={
-                  <img
-                    alt="example"
-                    src={
-                      "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                    }
-                    style={styles.img}
-                  />
-                }
-              >
-                <Card.Meta
-                  title="Titulo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                />
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                style={styles.card}
-                actions={[
-                  <Tooltip title="Ver noticia">
-                    <EyeFilled
-                      key="setting"
-                      onClick={() => {
-                        showDrawer("Titulo");
-                      }}
-                    />
-                  </Tooltip>,
-                ]}
-                hoverable
-                cover={
-                  <img
-                    alt="example"
-                    src={
-                      "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                    }
-                    style={styles.img}
-                  />
-                }
-              >
-                <Card.Meta
-                  title="Titulo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                />
-              </Card>
-            </Col>
-            <Col>
-              <Card
-                style={styles.card}
-                actions={[
-                  <Tooltip title="Ver noticia">
-                    <EyeFilled
-                      key="setting"
-                      onClick={() => {
-                        showDrawer("Titulo");
-                      }}
-                    />
-                  </Tooltip>,
-                ]}
-                hoverable
-                cover={
-                  <img
-                    alt="example"
-                    src={
-                      "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                    }
-                    style={styles.img}
-                  />
-                }
-              >
-                <Card.Meta
-                  title="Titulo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                />
-              </Card>
-            </Col>
-          </>
-        )}
-
-        <Col span={24}></Col>
-        <Col>
-          <Card
-            style={styles.card}
-            actions={[
-              <Tooltip title="Ver noticia">
-                <EyeFilled
-                  key="setting"
-                  onClick={() => {
-                    showDrawer("Titulo");
-                  }}
-                />
-              </Tooltip>,
-            ]}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src={
-                  "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                }
-                style={styles.img}
+                )
+              }
+            >
+              <Card.Meta
+                title={blog.title}
+                description={blog.description1.substring(0, 100) + "..."}
               />
-            }
-          >
-            <Card.Meta
-              title="Titulo"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            />
-          </Card>
-        </Col>
-        <Col>
-          <Card
-            style={styles.card}
-            actions={[
-              <Tooltip title="Ver noticia">
-                <EyeFilled
-                  key="setting"
-                  onClick={() => {
-                    showDrawer("Titulo");
-                  }}
-                />
-              </Tooltip>,
-            ]}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src={
-                  "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                }
-                style={styles.img}
-              />
-            }
-          >
-            <Card.Meta
-              title="Titulo"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            />
-          </Card>
-        </Col>
-        <Col>
-          <Card
-            style={styles.card}
-            actions={[
-              <Tooltip title="Ver noticia">
-                <EyeFilled
-                  key="setting"
-                  onClick={() => {
-                    showDrawer("Titulo");
-                  }}
-                />
-              </Tooltip>,
-            ]}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src={
-                  "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                }
-                style={styles.img}
-              />
-            }
-          >
-            <Card.Meta
-              title="Titulo"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            />
-          </Card>
-        </Col>
-        <Col>
-          <Card
-            style={styles.card}
-            actions={[
-              <Tooltip title="Ver noticia">
-                <EyeFilled
-                  key="setting"
-                  onClick={() => {
-                    showDrawer("Titulo");
-                  }}
-                />
-              </Tooltip>,
-            ]}
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src={
-                  "https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
-                }
-                style={styles.img}
-              />
-            }
-          >
-            <Card.Meta
-              title="Titulo"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            />
-          </Card>
-        </Col>
+            </Card>
+          </Col>
+        ))}
       </Row>
       <Drawer
-        title={blogSingle.title}
+        title={blogSingle && blogSingle.title}
         placement="right"
         closable={true}
         width={500}
@@ -279,35 +76,17 @@ const Blog = () => {
       >
         <img
           width={"100%"}
-          src="https://images4.alphacoders.com/709/thumb-1920-709032.jpg"
+          src={blogSingle && blogSingle.principal_img}
           style={{ borderRadius: "15px" }}
         />
-        <h5>2023-01-01</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar
-          etiam non quam lacus suspendisse faucibus interdum posuere lorem.
-          Purus in massa tempor nec feugiat. Nunc id cursus metus aliquam
-          eleifend mi. Ante in nibh mauris cursus. Eget nunc lobortis mattis
-          aliquam faucibus. Habitasse platea dictumst vestibulum rhoncus.
-          Vulputate dignissim suspendisse in est ante in nibh. Urna porttitor
-          rhoncus dolor purus non enim. A erat nam at lectus. Vitae elementum
-          curabitur vitae nunc sed velit. Amet consectetur adipiscing elit ut
-          aliquam. Eget dolor morbi non arcu risus quis varius quam.
-        </p>
-
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar
-          etiam non quam lacus suspendisse faucibus interdum posuere lorem.
-          Purus in massa tempor nec feugiat. Nunc id cursus metus aliquam
-          eleifend mi. Ante in nibh mauris cursus. Eget nunc lobortis mattis
-          aliquam faucibus. Habitasse platea dictumst vestibulum rhoncus.
-          Vulputate dignissim suspendisse in est ante in nibh. Urna porttitor
-          rhoncus dolor purus non enim. A erat nam at lectus. Vitae elementum
-          curabitur vitae nunc sed velit. Amet consectetur adipiscing elit ut
-          aliquam. Eget dolor morbi non arcu risus quis varius quam.
-        </p>
+        <h5>
+          {blogSingle && blogSingle.created.slice(0, 10)}{" "}
+          {blogSingle && blogSingle.created.slice(11, 16)} hrs.
+        </h5>
+        <p>{blogSingle && blogSingle.description2}</p>
+        <p>{blogSingle && blogSingle.description3}</p>
+        <p>{blogSingle && blogSingle.description4}</p>
+        <p>{blogSingle && blogSingle.description5}</p>
       </Drawer>
     </div>
   );

@@ -31,7 +31,7 @@ const FormData = () => {
         <Input placeholder="Apellido" />
       </Item>
       <Item name="date_of_birth">
-        <Input />
+        <Input placeholder="Fecha de nacimiento" />
       </Item>
       <Item name="phone_number">
         <Input placeholder="Teléfono" />
