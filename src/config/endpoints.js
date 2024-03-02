@@ -31,8 +31,9 @@ const update_password = async (new_password) => {
   return request.data;
 };
 
-const blog_list = async () => {
-  const request = await methods.GET("blogs/");
+const blog_list = async (type) => {
+  if (type === undefined) type = "";
+  const request = await methods.GET(`blogs/?type=${type}`);
   return request.data;
 };
 

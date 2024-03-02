@@ -4,7 +4,7 @@ import { EyeFilled } from "@ant-design/icons";
 import { endpoints } from "../config/endpoints";
 import Paragraph from "antd/es/skeleton/Paragraph";
 
-const Blog = () => {
+const Blog = ({ type }) => {
   const [visible, setVisible] = useState(false); // initialize state for Drawer visibility
   const [blogSingle, setBlogSingle] = useState(null);
   const [blogs, setBlogs] = useState([]);
@@ -21,7 +21,7 @@ const Blog = () => {
 
   useEffect(() => {
     const getBlogs = async () => {
-      const request = await endpoints.blog.list().then((x) => {
+      const request = await endpoints.blog.list(type).then((x) => {
         setBlogs(x.results);
       });
     };

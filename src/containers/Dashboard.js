@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Typography, Row, Col, Card, Button, Tag, Table } from "antd";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import {
@@ -22,8 +22,7 @@ import { AppContext } from "../App";
 const { Title, Paragraph } = Typography;
 
 const Dashboard = () => {
-    
-    const { state, dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   return (
     <Row justify={"space-between"} align={""}>
@@ -275,7 +274,7 @@ const Dashboard = () => {
         </Row>
       </Col>
       <Col span={24}>
-        <Blog />
+        <Blog type="novedades" />
       </Col>
       <Col span={24} style={{ marginTop: "20px" }}>
         <Row
@@ -592,7 +591,7 @@ const Dashboard = () => {
         </Row>
       </Col>
       <Col span={24}>
-        <Blog />
+        <Blog type="beneficios" />
       </Col>
     </Row>
   );
