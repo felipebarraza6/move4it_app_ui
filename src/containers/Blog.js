@@ -83,6 +83,7 @@ const Blog = ({ type }) => {
           {blogSingle && blogSingle.created.slice(0, 10)}{" "}
           {blogSingle && blogSingle.created.slice(11, 16)} hrs.
         </h5>
+        <p>{blogSingle && blogSingle.description1}</p>
         <p>{blogSingle && blogSingle.description2}</p>
         <p>{blogSingle && blogSingle.description3}</p>
         <p>{blogSingle && blogSingle.description4}</p>
