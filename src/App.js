@@ -4,7 +4,7 @@ import Home from "./containers/Home";
 import Login from "./containers/Login";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { authReducer } from "./reducers/auth";
-import {endpoints} from "./config/endpoints";
+import { endpoints } from "./config/endpoints";
 export const AppContext = createContext();
 
 const App = () => {
@@ -66,6 +66,8 @@ const App = () => {
       ],
     },
   ]);
+
+  console.log(state);
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>

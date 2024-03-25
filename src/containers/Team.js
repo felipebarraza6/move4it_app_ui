@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Typography,
   Row,
@@ -26,6 +26,7 @@ import {
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { Area } from "@ant-design/plots";
 import "react-circular-progressbar/dist/styles.css";
+import { AppContext } from "../App";
 
 const { Title, Paragraph } = Typography;
 
@@ -59,6 +60,9 @@ const Team = () => {
       },
     },
   };
+
+  const { state } = useContext(AppContext);
+
   return (
     <Row
       justify={window.innerWidth > 900 ? "space-between" : "center"}
@@ -71,12 +75,12 @@ const Team = () => {
       >
         <Card style={{ width: "100%", ...styles.card }} hoverable>
           <Title level={2} style={{ color: "white" }}>
-            Equipo Rojo
+            {state.user.team.name}
           </Title>
-          <Tag color="blue">Puntaje: 1.541</Tag>
-          <Tag color="blue">Ranking: 2/40</Tag>
+          <Tag color="blue">Puntaje: -</Tag>
+          <Tag color="blue">Ranking: -</Tag>
           <Tag color="geekblue-inverse" style={{ marginTop: "10px" }}>
-            EMPRESA
+            {state.user.team.enterprise.name}
           </Tag>
         </Card>
       </Col>
@@ -85,7 +89,7 @@ const Team = () => {
           <Row justify={"space-between"} align={"middle"}>
             <Col xs={12} xl={5} style={{ paddingRight: "5px" }}>
               <Statistic
-                value={1.7}
+                value={0.0}
                 precision={2}
                 style={styles.static}
                 title={
@@ -102,7 +106,7 @@ const Team = () => {
             </Col>
             <Col xs={12} xl={5}>
               <Statistic
-                value={23}
+                value={0}
                 precision={1}
                 style={styles.static}
                 title={
@@ -119,7 +123,7 @@ const Team = () => {
             </Col>
             <Col xs={12} xl={5} style={{ paddingRight: "5px" }}>
               <Statistic
-                value={78}
+                value={0}
                 precision={1}
                 style={styles.static}
                 title={

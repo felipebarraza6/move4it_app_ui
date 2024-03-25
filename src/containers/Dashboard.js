@@ -99,12 +99,12 @@ const Dashboard = () => {
                 }}
               >
                 <TeamOutlined style={{ marginRight: "10px" }} />
-                EQUIPO
+                {state.user.team.name}
               </Title>
             </Col>
             <Col>
               <Tag style={{ marginLeft: "10px" }} color="magenta-inverse">
-                Empresa
+                {state.user.team.enterprise.name}
               </Tag>
             </Col>
           </Row>
